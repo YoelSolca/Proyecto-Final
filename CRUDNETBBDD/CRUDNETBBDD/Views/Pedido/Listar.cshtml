@@ -1,0 +1,143 @@
+﻿
+@model List<ModelPedido>
+
+
+@{
+    ViewData["Title"] = "Listado de pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table{
+    width: 76% !important;
+    margin: 9rem 15.5rem !important;
+}
+
+.create{
+    margin: 5rem 0 0 0;
+    text-align: right;
+}
+
+
+.alert{
+    margin-top: 5rem !important;
+    margin-left: 14rem !important;
+}
+
+</style>
+
+
+@if (TempData["SuccesMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccesMessage"]
+    </div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table table-striped">
+   
+    <thead>
+        <tr>
+            <th>#Codigo del pedido</th>
+            <th>#Codigo del articulo</th>
+            <th>Nombre del articulo</th>
+            <th>#Codigo del cliente</th>
+            <th>Nombre del cliente</th>
+            <th>Fecha del pedido</th>
+            <th>Forma de pago</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var item in Model)
+        {
+
+            var color = string.Empty;
+
+            if(item.formadePago == "Contado")
+            {
+                color = "#bd2d2d";
+            }
+            else if(item.formadePago == "Tarjeta")
+            {
+                color = "#7178df";
+            }
+            else if(item.formadePago == "Cheque")
+            {
+                color = "#3c3c3c";
+            }
+            else
+            {
+               color = "#8d4925";
+            }
+            <tr>
+                <td>@item.id</td>
+               
+                <td>@item.cArticulo</td>
+                <td>@item.modelArticulo.nombreArticulo</td>
+                <td>@item.cCliente</td>
+                <td>@item.modelCliente.nombre</td>
+                 <td>@item.fechaPedido</td>
+                <td>
+                    <p style="background: @color; margin: 0 !important; width: 84px; display: inline-block;border-radius: 24px;color: #fff;">
+                        @item.formadePago
+                    </p>
+                </td>
+                <td>
+                    @*<a asp-action="Editar" asp-controller="CRUD" class="btn btn-primary bt-sm" asp-route-id="@item.id">
+                        Editar
+                    </a>*@
+
+                     <a onclick="Details(@item.id)" style="cursor:pointer;">
+                        <i class="bi bi-trash3-fill"></i> 
+                       </a>
+                   @*  <a asp-action="Eliminar" asp-controller="CRUD" class="btn btn-primary bt-sm" asp-route-id="@item.id">
+                        Eliminar
+                    </a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+ <div class="modal fade" id="myModal" role="dialog">
+   
+     <div class="modal-dialog">
+      <div>
+        <div>
+        </div>
+            </div>
+            <div class="modal-body">
+
+            </div>
+          
+        </div>
+    </div>
+
+
+
+ <script type="text/javascript">
+        
+
+function Details(id) {
+    $.get("@Url.Action("Eliminar", "Pedido")/" + id,
+
+        function(data) { $('.modal-body').html(data);
+        })
+    $('#myModal').modal('show');
+}
+
+    window.setTimeout(function() {
+        $(".alert").fadeTo(1500, 0).slideUp(500, function() {
+            $(this).remove();
+        });
+    }, 1000);
+  </script>

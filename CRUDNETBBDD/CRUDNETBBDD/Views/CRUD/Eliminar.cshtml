@@ -1,0 +1,48 @@
+﻿@model ModelCliente 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eliminar</title>
+</head>
+<body>
+
+  
+<form asp-action="Eliminar" asp.controller="CRUD" method="post">
+
+ <div class="container" style=" margin-top: 7rem !important;
+    width: 32% !important;">
+        <div class="col-sm-4"></div>
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background:#bd2d2d; color: #fff;">
+            <h6 style="margin-bottom: 0!important;">Eliminar cliente</h6>
+
+        </div>
+        <div class="modal-body">
+             <strong>¿Está seguro que quiere eliminar el cliente
+            <span class="text-primary">
+                    @Html.DisplayTextFor(a => a.nombre)
+            </span> ?</strong>
+</div>
+        <div class="modal-footer">
+           <button type="submit" class="btn btn-primary" asp-action="Eliminar" asp.controller="CRUD" >Eliminar</button>
+
+            <a asp-action="Listar" asp.controller="CRUD" class="btn btn-warning" id="btnHideModal">Cancelar</a> 
+       </div>
+      </div>
+    </div>
+        </div>
+        </form>
+
+</body>
+</html>
+
+

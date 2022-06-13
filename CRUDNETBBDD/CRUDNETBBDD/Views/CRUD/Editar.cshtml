@@ -1,0 +1,147 @@
+﻿@model ModelCliente
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editar</title>
+</head>
+<body>
+
+           <form asp-action="Editar" asp-controller="CRUD" method="post">
+    <div class="container">
+        <div class="col-sm-4"></div>
+    <div class="modal-dialog" style="margin: 1.75rem -3rem;">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="width: 45rem;">
+        <div class="modal-header">
+            <h6 style="color: #000;">Información del cliente</h6>
+
+            <h6 style="color: #000; margin-left: 9rem;">Pedidos solicitados</h6>
+
+            <div class="d-flex">
+             <a  data-bs-toggle="tooltip" data-bs-placement="top" title="Solicitar articulo"> 
+            <i style="color:#0B5ED7; font-size: 20px; cursor: pointer; padding: 0!important;" class="bi bi-clipboard-plus-fill button1"></i> 
+           </a>
+           
+            <div class="modal fade" id="myModal3" role="dialog" data-url='@Url.Action("GuardarForm","Pedido", new { id = @Model.id })'>
+                      </div>
+
+             <a class="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" style="margin-left: 10px;"> 
+            <i style="color:#bd2d2d; font-size: 20px; cursor: pointer;" class="bi bi-trash3-fill"></i> 
+           </a>
+
+             <div class="modal fade" id="myModal2" role="dialog" data-url='@Url.Action("Eliminar","CRUD", new { id = @Model.id })'>
+                      </div>
+            </div>
+
+        </div>
+        <div class="modal-body" style="display: flex; justify-content: center;">
+     
+               <input asp-for="id"  type="hidden" class="form-control"/>
+
+               <div style="width: 50% !important;">
+                        <label class="form-label">Nombre</label>
+                        <input asp-for="nombre" type="text" class="form-control">
+                        <div>
+                        <span asp-validation-for="nombre" class="text-danger"></span>
+                        </div>
+
+
+                          <label class="form-label">Dirección</label>
+                         <input asp-for="direccion" type="text" class="form-control">
+                         <div>
+                          <span asp-validation-for="direccion" class="text-danger"></span>
+                         </div>
+
+                          <label class="form-label">Población</label>
+                         <input asp-for="poblacion" type="text" class="form-control">
+                         <div>
+                         <span asp-validation-for="poblacion" class="text-danger"></span>
+                         </div> 
+
+                          <label class="form-label">Teléfono</label>
+                         <input asp-for="telefono" type="text" class="form-control">
+                         <div>
+                         <span asp-validation-for="telefono" class="text-danger"></span>
+                         </div>
+       </div>
+
+        <div style="width: 50% !important;">
+               @if (Model.modelPedido.Count != 0)
+              {
+                                
+                @foreach (var item in Model.modelPedido)
+                  {
+                      <div style="display: flex; justify-content: space-between;">
+                           <p style="text-align: start; margin-left: 4rem;">@item.modelArticulo.nombreArticulo
+                           </p>         
+                           <p style="margin-left: 1rem;">@item.fechaPedido</p>         
+                                    </div>
+              }
+              }else
+               {
+                           <p style="text-align: start; margin-left: 4rem;">No hay ningun pedido por el momento</p>         
+               }
+
+       </div>
+
+
+</div>
+        <div class="modal-footer">
+           <button type="submit" class="btn btn-primary" asp-action="Editar" asp.controller="CRUD" >Editar</button>
+
+          <a asp-action="Listar" asp.controller="CRUD" class="btn btn-warning">Cancelar</a>   
+       </div>
+      </div>
+    </div>
+        </div>
+           </form>
+</body>
+</html>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $("body").on('change', '#ddlCountries', function () {
+            $('#hfCountry').val($(this).find('option:selected').text());
+        });
+        $("body").on('click', '#btnCreate', function () {
+            if (!$('form').valid()) {
+                $("#MyPopup").modal("show");
+                return false;
+            }
+        });
+    });
+
+  $(document).ready(function() {
+                $('.button').click(function() {
+                    var url = $('#myModal2').data('url');
+                    $.get(url, function(data) {
+                        $("#myModal2").html(data);
+                        $("#myModal2").modal('show');
+                    });
+                });
+            });
+
+              $(document).ready(function() {
+                $('.button1').click(function() {
+                    var url = $('#myModal3').data('url');
+                    $.get(url, function(data) {
+                        $("#myModal3").html(data);
+                        $("#myModal3").modal('show');
+                    });
+                });
+            });
+
+</script>

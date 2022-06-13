@@ -1,0 +1,51 @@
+﻿@model ModelArticulo
+
+@{
+    ViewData["Title"] = "Nuevo producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+                
+            <div class="card" style="margin: 7rem 0 0 30rem !important;">
+                    <h5 class="card-header">Guardar producto</h5>
+                      <div class="card-body">
+        <form asp-action="GuardarForm" asp.controller="Producto" method="post">
+                              <div class="mb-3">
+            
+                        <label class="form-label">Nombre</label>
+                        <input asp-for="nombreArticulo" type="text" class="form-control">
+
+                        <div>
+                        <span asp-validation-for="nombreArticulo" class="text-danger"></span>
+                        </div>
+
+                         <select class="form-select" aria-label="Default select example" style="margin-top: 1rem;" asp-for="seccion">
+                                          <option  selected value="Ferreteria">Ferreteria</option>
+                                          <option  value="Jugueteria">Jugueteria</option>
+                                          <option  value="Libreria">Libreria</option>
+                                          <option  value="Deportes">Deportes</option>
+                                          <option  value="Hogar">Hogar</option>
+                          </select>
+                         <div>
+                          <span asp-validation-for="seccion" class="text-danger"></span>
+                          </div>
+
+                          <label class="form-label">Precio</label>
+                         <input asp-for="precio" type="text" class="form-control">
+                         <div>
+                         <span asp-validation-for="precio" class="text-danger"></span>
+                         </div>
+
+                          <label class="form-label">Pais de Origen</label>
+                         <input asp-for="paisOrigen" type="text" class="form-control">
+                        <div>
+                         <span asp-validation-for="paisOrigen" class="text-danger"></span>
+                        </div>
+
+                     </div>
+
+              <button type="submit" class="btn btn-primary">Guardar</button>
+              <a asp-action="Listar" asp.controller="Producto" class="btn btn-warning">Volver al listado</a>
+                     </form>
+     </div>
+     </div>

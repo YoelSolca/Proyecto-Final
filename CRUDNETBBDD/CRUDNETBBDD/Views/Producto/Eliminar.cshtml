@@ -1,0 +1,48 @@
+﻿@model ModelArticulo
+
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h6 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 0!important;
+}
+</style>
+        <form asp-action="Eliminar" asp.controller="Producto" method="post">
+ <div class="container" style=" margin-top: 7rem !important;
+    margin-left: 5rem !important;">
+        <div class="col-sm-4"></div>
+    <div class="modal-dialog">
+           <div class="modal-content">
+        <div class="modal-header" style="background:#bd2d2d; color: #fff">
+            <h6>Eliminar Articulo</h6>
+
+        </div>
+   <div class="modal-body">
+              <input asp-for="id"  type="hidden" class="form-control"/>
+
+             <strong>¿Está seguro que quiere eliminar el articulo
+            <span class="text-primary">
+                    @Html.DisplayTextFor(a => a.nombreArticulo)
+            </span> ?</strong>
+</div>
+
+                      <div class="modal-footer">
+
+
+                     <button type="submit" class="btn btn-primary">Guardar</button>
+
+                     <a asp-action="Listar" asp.controller="Producto" class="btn btn-warning">Volver al listado</a>
+          
+              </div>   
+    </div>
+</div>
+</div>
+
+              </form>

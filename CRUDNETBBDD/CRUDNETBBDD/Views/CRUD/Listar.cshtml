@@ -1,0 +1,130 @@
+﻿@model List<ModelCliente>
+
+@{
+    ViewData["Title"] = "Listado de clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+@if (TempData["SuccesMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccesMessage"]
+    </div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<style>
+.btn:focus, .btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+table{
+    width: 80% !important;
+    margin: 4rem 14rem !important;
+}
+
+.create{
+    margin: 5rem 0 0 0;
+    text-align: right;
+}
+
+.create a{
+     background: #c59d5f;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.alert{
+    margin-top: 5rem !important;
+    margin-left: 14rem !important;
+}
+
+</style>
+
+
+
+    <div class="create">
+        <a asp-action="GuardarForm" asp-controller="CRUD">
+            Crear nuevo
+        </a>
+    </div>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>#Codigo</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Población</th>
+            <th>Teléfono</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.nombre</td>
+                <td>@item.direccion</td>
+                <td>@item.poblacion</td>
+                <td>@item.telefono</td>
+                <td>
+                     <a onclick="Details(@item.id)" style="cursor:pointer;">
+                        <i class="bi bi-info-circle-fill"></i> 
+                       </a>
+                    </td>
+                    </tr>
+        }
+    </tbody>
+
+</table>
+
+         <div class="modal fade" id="myModal" role="dialog">
+   
+     <div class="modal-dialog">
+      <div>
+        <div>
+        </div>
+            </div>
+            <div class="modal-body">
+
+            </div>
+          
+        </div>
+    </div>
+
+
+
+  <script type="text/javascript">
+        
+
+function Details(id) {
+    $.get("@Url.Action("Editar", "CRUD")/" + id,
+
+        function(data) { $('.modal-body').html(data);
+        })
+    $('#myModal').modal('show');
+}
+
+$('#mymodal').on('hidden.bs.modal', function(e) {
+    $('.modal-body').html("");
+})
+
+    window.setTimeout(function() {
+        $(".alert").fadeTo(1500, 0).slideUp(500, function() {
+            $(this).remove();
+        });
+    }, 1000);
+  </script>

@@ -1,0 +1,103 @@
+﻿@model ModelArticulo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editar</title>
+</head>
+<body>
+        <form asp-action="Editar" asp.controller="Producto" method="post">
+           <div class="container">
+                <div class="col-sm-4"></div>
+            <div class="modal-dialog">
+    
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                            <h6 style="color: #000">Información del producto</h6>
+
+                             <a class="button">
+                            <i style="color:#bd2d2d; font-size: 20px; cursor: pointer;" class="bi bi-trash3-fill"></i> 
+                           </a>
+
+                             <div class="modal fade" id="myModal2" role="dialog" data-url='@Url.Action("Eliminar","Producto", new { id = @Model.id })'>
+                                      </div>
+
+                        </div>     
+                        <div class="modal-body">
+
+                         <label class="form-label">Nombre</label>
+                        <input asp-for="nombreArticulo" type="text" class="form-control">
+
+                        <span asp-validation-for="nombreArticulo" class="text-danger"></span>
+
+                         <select class="form-select" aria-label="Default select example" style="margin-top: 1rem;" asp-for="seccion">
+                                          <option  value="Ferreteria">Ferreteria</option>
+                                          <option  value="Jugueteria">Jugueteria</option>
+                                          <option  value="Libreria">Libreria</option>
+                                          <option  value="Deportes">Deportes</option>
+                                          <option  value="Hogar">Hogar</option>
+                          </select>
+
+                          <span asp-validation-for="seccion" class="text-danger"></span>
+
+                          <label class="form-label">Precio</label>
+                         <input asp-for="precio" type="text" class="form-control">
+                           <span asp-validation-for="precio" class="text-danger"></span>
+
+                          <label class="form-label">Pais de Origen</label>
+                         <input asp-for="paisOrigen" type="text" class="form-control">
+                         <span asp-validation-for="paisOrigen" class="text-danger"></span>
+
+                     </div>
+                             <div class="modal-footer">
+
+              <button type="submit" class="btn btn-primary">Editar</button>
+              <a asp-action="Listar" asp.controller="Producto" class="btn btn-warning">Volver al listado</a>
+        
+</div>
+      </div>
+    </div>
+        </div>          </form>
+
+</body>
+</html>
+
+
+                          
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript">
+    $(function () {
+        $("body").on('change', '#ddlCountries', function () {
+            $('#hfCountry').val($(this).find('option:selected').text());
+        });
+        $("body").on('click', '#btnCreate', function () {
+            if (!$('form').valid()) {
+                $("#MyPopup").modal("show");
+                return false;
+            }
+        });
+    });
+
+  $(document).ready(function() {
+                $('.button').click(function() {
+                    var url = $('#myModal2').data('url');
+                    $.get(url, function(data) {
+                        $("#myModal2").html(data);
+                        $("#myModal2").modal('show');
+                    });
+                });
+            });
+
+
+</script>

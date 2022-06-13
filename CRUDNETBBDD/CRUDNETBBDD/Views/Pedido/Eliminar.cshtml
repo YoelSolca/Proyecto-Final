@@ -1,0 +1,59 @@
+﻿@model ModelPedido
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eliminar</title>
+</head>
+
+<body>
+
+    <style>
+    h6 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 0!important;
+    margin-top: 0!important;
+}
+</style>
+
+    <form asp-action="Eliminar" asp.controller="Pedido" method="post">
+
+ <div class="container" style=" margin-top: 7rem !important;
+    margin-left: 5rem !important;">
+        <div class="col-sm-4"></div>
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background:#bd2d2d; color: #fff">
+            <h6>Eliminar cliente</h6>
+
+        </div>
+        <div class="modal-body">
+             <strong>¿Está seguro que quiere eliminar el pedido Nª
+            <span class="text-primary">
+                    @Html.DisplayTextFor(a => a.id)
+            </span> ?</strong>
+</div>
+        <div class="modal-footer">
+           <button type="submit" asp-action="Eliminar" asp.controller="Pedido" class="btn btn-primary" >Eliminar</button>
+
+                 <a asp-action="Listar" asp.controller="CRUD" class="btn btn-warning">Cancelar</a> 
+       </div>
+
+      </div>
+    </div>
+        </div>
+        </form>
+
+
+</body>
+</html>
